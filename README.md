@@ -7,6 +7,7 @@ Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), lo
 ## Links
 * [Data Science Cheatsheet 2.0 PDF](http://www.wzchen.com/probability-cheatsheet/)
 
+## Screenshots
 
 ### Why is Python/SQL not covered in this cheatsheet?
 I planned for this resource to cover mainly algorithms, models, and concepts, as these rarely change and are common throughout industries. Technical languages and data structures often vary by job function, and refreshing these skills may make more sense on keyboard than on paper.
