@@ -20,4 +20,4 @@ This work is licensed under the <a rel="license" href="http://creativecommons.or
 ## Contact
 For comments, suggestions, or corrections, feel free to contact me or submit a pull request
 
-**Aaron Wang**: Reach out to me via [LinkedIn](https://www.linkedin.com/in/axw/)
+**Aaron Wang**: Reach out via [LinkedIn](https://www.linkedin.com/in/axw/)
