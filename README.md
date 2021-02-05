@@ -9,7 +9,7 @@ Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), lo
 
 
 ### Why is Python/SQL not covered in this cheatsheet?
-I planned for this resource to cover mainly algorithms, models, and concepts, as these rarely change and are common throughout industries. Technical languages and data structures often vary by job function, and think refreshing these skills make more sense on a keyboard than on a paper.
+I planned for this resource to cover mainly algorithms, models, and concepts, as these rarely change and are common throughout industries. Technical languages and data structures often vary by job function, and I think refreshing these skills makes more sense on keyboard than on paper.
 
 
 ## License
