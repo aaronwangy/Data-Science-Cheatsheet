@@ -24,6 +24,8 @@ Topics covered (some more in-depth than others) include:
 * [Data Science Cheatsheet 2.0 PDF](http://www.wzchen.com/probability-cheatsheet/)
 
 ## Screenshots
+![](images/page1-1.png?raw=true)
+![](images/page2-1.png?raw=true)
 
 ### Why is Python/SQL not covered in this cheatsheet?
 I planned for this resource to cover mainly algorithms, models, and concepts, as these rarely change and are common throughout industries. Technical languages and data structures often vary by job function, and refreshing these skills may make more sense on keyboard than on paper.
