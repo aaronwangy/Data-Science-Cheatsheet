@@ -1,0 +1,774 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt,landscape]{article}
+\usepackage{amssymb,amsmath,amsthm,amsfonts}
+\usepackage{multicol,multirow}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\usepackage{calc}
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{titlesec}
+\usepackage[landscape]{geometry}
+\usepackage{fancyhdr}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+%------------------------------------
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.4in,left=.5in,right=.5in,bottom=.4in} }
+	{\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+		{\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+	}
+\pagestyle{fancy}
+\fancyhf{}
+% Remove line
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\fontsize{9pt}{11pt}\selectfont Aaron Wang}
+\setlength{\footskip}{16pt} % amount to move footer by
+
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+% -----------------------------------------------------------------------
+
+\title{Data Science Cheatsheet}
+\begin{document}
+
+\raggedright
+\footnotesize
+
+\begin{center}
+\vspace{-50mm}
+     \Large{\vspace{-15mm}\textbf{Data Science Cheatsheet 2.0}} \\
+     \footnotesize{Last Updated February 13, 2021}
+     \vspace{-.4mm}
+\end{center}
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+% -----------------------------------------------------------------------
+% ----------------------------------------------------------------
+\section{Statistics}
+\subsection{Discrete Distributions}
+\textbf{Binomial} Bin($n,p)$ - number of successes in $n$ events, each with $p$ probability. If n = 1, this is the Bernoulli distribution.
+
+\textbf{Geometric} Geom($p)$ - number of failures before success 
+
+\textbf{Negative Binomial} NBin($r,p$) - number of failures before $r$ successes 
+
+\textbf{Hypergeometric} HGeom($N,k,n)$ - number of $k$ successes in a size $N$ population with $n$ draws, without replacement 
+
+\textbf{Poisson} Pois($\lambda$) - number of successes in a fixed time interval, where successes occur independently at an average rate $\lambda$ 
+
+% -----------------------------------------------------------------------
+\subsection{Continuous Distributions} 
+\textbf{Normal/Gaussian} $N(\mu,\sigma$), Standard Normal $Z \sim N(0, 1)$
+
+Central Limit Theorem - sample mean of i.i.d. data approaches normal distribution 
+
+\textbf{Exponential} Exp($p)$ - time between independent events occurring at an average rate $\lambda$ 
+
+\textbf{Gamma} Gamma($p)$ - time until $n$ independent events occurring at an average rate $\lambda$ 
+
+% -----------------------------------------------------------------------
+\subsection{Hypothesis Testing}
+\textbf{Significance Level} $\alpha$ - probability of Type 1 error 
+
+$\boldsymbol p$\textbf{-value} - probability of getting results at least as extreme as the current test. If p-value $<\alpha$, or if test statistic $>$ critical value, then reject the null.
+
+\textbf{Type I Error} (False Positive) - null true, but reject  
+
+\textbf{Type II  Error} (False Negative)  - null false, but fail to reject
+
+\textbf{Power} - probability of avoiding a Type II Error, and rejecting the null when it is indeed false
+
+\textbf{Z-Test} - tests whether population means/proportions are different. Assumes test statistic is normally distributed and is used when $n$ is large and variances are known. If not, then use a $t$-test. Paired tests compare the mean at different points in time, and two-sample tests compare means for two groups.
+
+\textbf{ANOVA} - analysis of variance, used to compare 3+ samples with a single test
+
+\textbf{Chi-Square Test} - checks relationship between categorical variables (age vs. income). Or, can check goodness-of-fit between observed data and expected population distribution. 
+% ---------------------------------------------------------------
+\section{Concepts}
+\textbf{Learning}
+
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\vspace{-1.5mm}
+\item Supervised - labeled data
+\item Unsupervised - unlabeled data
+\item Reinforcement - actions, states, and rewards 
+\end{itemize}
+
+
+\textbf{Cross Validation} - estimate test error with a portion of training data to validate accuracy and model parameters
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\vspace{-1mm}
+\item $k$-fold - divide data into $k$ groups, and use one to validate
+\item leave-$p$-out  - use $p$ samples to validate and the rest to train
+\end{itemize}
+
+\textbf{Parametric} - assume data follows a function form with a fixed number of parameters
+
+\textbf{Non-parametric} - no assumptions on the data and an unbounded number of parameters
+
+\columnbreak
+% ---------------------------------------------------------------% ---------------------------------------------------------------
+% ---------------------------------------------------------------
+% ---------------------------------------------------------------
+\section{Model Evaluation}
+Prediction Error = Bias$^2$ + Variance + Irreducible Noise 
+
+\textbf{Bias} - wrong assumptions when training $\to$ can't capture underlying patterns $\to$ underfit 
+
+\textbf{Variance} - sensitive to fluctuations when training$\to$ can't generalize on unseen data $\to$ overfit
+% ----------------------------------------------------------------
+\subsection{Regression}
+\textbf{Mean Squared Error} (MSE) = $\frac{1}{n}\sum (y_i -\hat{y})^2$  
+
+\vspace{.2em}
+\textbf{Mean Absolute Error} (MAE) =$\frac{1}{n}\sum |(y_i -\hat{y})|$ 
+
+Residual Sum of Squares = $\sum (y_i - \hat{y})^2$ 
+
+Total Sum of Squares = $\sum (y_i - \bar{y})^2$ 
+
+$\boldsymbol{R^2} = 1 - \frac{SS_{\rm res}}{SS_{\rm tot}}$ 
+
+\subsection{Classification}
+\begin{center}
+        \footnotesize
+        \begin{tabular}{ |c|c|c| } 
+         \hline
+          & Predict Yes & Predict No \\ 
+         \hline
+         Actual Yes & True Positives (TP) & False Negatives (FN)  \\
+         Actual No & False Positives (FP) & True Negatives (TN) \\ 
+         \hline
+        \end{tabular}
+        \end{center}
+\vspace{-1mm}
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Precision = $\frac{TP}{TP + FP}$, percent correct when predict positive 
+\item Recall, Sensitivity = $\frac{TP}{TP + FN}$, percent of actual positives identified correctly (True Positive Rate)
+\item Specificity = $\frac{TN}{TN + FP}$, percent of actual negatives identified correctly, also 1 - FPR (True Negative Rate) 
+\item $F_1 = 2\frac{precision\cdot recall}{precision + recall}$, useful when classes are imbalanced
+\end{itemize}
+
+\textbf{ROC Curve} - plots TPR vs. FPR for every threshold $\alpha$. AUC measures how likely the model differentiates positives and negatives. Perfect AUC = 1, Baseline = 0.5 
+
+\textbf{Precision-Recall Curve} - focuses on the correct prediction of class 1, useful when data or FP/FN costs are imbalanced
+
+% ----------------------------------------------------------------
+\section{Linear Regression}
+Models linear relationships between a continuous response and explanatory variables
+
+\textbf{Ordinary Least Squares} - find $\hat{\beta}$ for $\hat{y} = \hat{\beta_{0}} + \hat{\beta}X + \epsilon$ 
+by solving $\hat{\beta}$ = $(X^{T}X)^{-1}X^{T}Y$ which minimizes the SSE 
+
+\textbf{Assumptions}
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Linear relationship and independent observations
+\item Homoscedasticity - error terms have constant variance
+\item Errors are uncorrelated and normally distributed
+\item Low multicollinearity
+\end{itemize}
+\textbf{Regularization} 
+
+Add a penalty for large coefficients to reduce overfitting 
+
+\textbf{Subset}  (L0): $\lambda ||\hat{\beta}||_0 = \lambda (number \;of\;non\hspace{-.7mm}-\hspace{-.7mm}zero\; variables)$ 
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Computationally slow, need to fit $2^k$ models
+\item Alternatives: forward and backward stepwise selection
+\end{itemize}
+\textbf{LASSO}  (L1): $\lambda ||\hat{\beta}||_1 = \lambda\sum | \hat{\beta} |$
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Coefficients shrunk to zero
+\end{itemize}
+\textbf{Ridge}  (L2): $\lambda ||\hat{\beta}||_2 = \lambda\sum( \hat{\beta})^2$ 
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Reduces effects of multicollinearity
+\end{itemize}
+Combining LASSO and Ridge gives Elastic Net. In all cases, as $\lambda$ grows, bias increases and variance decreases. Regularization can also be applied to many other algorithms.
+
+\columnbreak
+% ----------------------------------------------------------------
+\section{Logistic Regression}
+Predicts probability that Y belongs to a binary class (1 or 0). Fits a logistic (sigmoid) function to the data that maximizes the likelihood that the observations follow the curve. Regularization can be added in the exponent.
+\vspace{-2mm}
+\begin{center}
+$\displaystyle P(Y=1) = \frac{1}{1 + e^{-({\beta_0} + {\beta x)}}}$
+
+\end{center}
+\vspace{-2mm}
+\textbf{Odds} - output probability can be transformed using $Odds(Y = 1) = \frac{P(Y=1)}{1-P(Y=1)}$, where $P(\frac{1}{3})$ = 1:2 odds
+
+\textbf{Assumptions}
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Linear relationship between X and log-odds of Y 
+\item Independent observations
+\item Low multicollinearity
+\end{itemize}
+% ----------------------------------------------------------------
+\section{Decision Trees}
+\subsection{Classification and Regression Tree} 
+CART for regression minimizes SSE by splitting data into sub-regions and predicting the average value at leaf nodes. Trees are prone to high variance, so tune through CV.\\
+\textbf{Hyperparameters}
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Complexity parameter, to only keep splits that improve SSE by at least $cp$ (most influential, small $cp$ $\to$ deep tree) 
+\item Minimum number of samples at a leaf node
+\item Minimum number of samples to consider a split
+\end{itemize}
+
+\begin{center}
+\vspace{-1mm}
+    \includegraphics[scale = .09]{images/CART.JPG}
+\end{center}
+\vspace{-2mm}
+CART for classification minimizes the sum of region impurity, \\
+where $\hat{p_i}$ is the probability of a sample being in category $i$.
+Possible measures, each with a max impurity of 0.5.
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Gini impurity = $\sum_i (\hat{p_i})^2$ 
+\item Entropy = $\sum_i -(\hat{p_i}) log_2(\hat{p_i})$ 
+\end{itemize}
+At each leaf node, CART predicts the most frequent category, assuming false negative and false positive costs are the same.
+
+\subsection{Random Forest}
+Trains an ensemble of trees that vote for the final prediction
+
+\textbf{Bootstrapping} - sampling with replacement (will contain duplicates), until the sample is as large as the training set
+
+\textbf{Bagging} - training independent models on different subsets of the data, which reduces variance. Each tree is trained on $\sim$63\% of the data, so the out-of-bag 37\% can estimate prediction error without resorting to CV.  
+
+\textbf{Additional Hyperparameters} (no $cp$):
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Number of trees to build
+\item Number of variables considered at each split
+\end{itemize}
+Deep trees increase accuracy, but at a high computational cost. Model bias is always equal to one of its individual trees.
+\textbf{Variable Importance} - RF ranks variables by their ability to minimize error when split upon, averaged across all trees 
+% ----------------------------------------------------------------% ----------------------------------------------------------------
+\columnbreak
+% ----------------------------------------------------------------
+\\\textcolor{white}{.}\vspace{-5mm}\\ % Add space above column 
+\section{Naive Bayes}
+Classifies data using the label with the highest conditional probability, given data $a$ and classes $c$. Naive because it assumes variables are independent.
+
+\textbf{Bayes' Theorem} $ P({c_i}|{a})  = \frac{P({a}|{c_i})P({c_i})}{P({a})}$
+
+\textbf{Gaussian Naive Bayes} - calculates conditional probability for continuous data by assuming a normal distribution
+% ----------------------------------------------------------------
+\section{Support Vector Machines}
+Separates data between two classes by maximizing the margin between the hyperplane and the nearest data points of any class. Relies on the following: 
+\vspace{-2mm}
+\begin{center}
+    \includegraphics[scale = .24]{images/svmNew2.JPG}
+\end{center}
+\vspace{-2mm}
+\textbf{Support Vector Classifiers} - account for outliers by allowing misclassifications on the support vectors (points in or on the margin) 
+
+\textbf{Kernel Functions} - solve nonlinear problems by computing the similarity between points $a$, $b$ and mapping the data to a higher dimension. Common functions:
+\begin{itemize}[label={--},leftmargin=4mm]
+\vspace{-1mm}
+\itemsep -.4mm 
+\item Polynomial ($ab + r)^d$
+\item Radial $e^{-\gamma(a-b)^2}$
+\end{itemize}
+
+\textbf{Hinge Loss} - max($0,1-y_i(w^T x_i - b)$), where 
+$w$ is the margin width, $b$ is the offset bias, and classes are labeled $\pm1$. Note, even a correct prediction inside the margin gives loss $>$ 0.
+\vspace{-1mm}
+\begin{center}
+    \includegraphics[scale = .105]{images/hingeloss3.JPG}
+\end{center}
+\vspace{-3.5mm}
+% ----------------------------------------------------------------
+\section{k-Nearest Neighbors}
+Non-parametric method that calculates $\hat{y}$ using the average value or most common class of its $k$-nearest points. For high-dimensional data, information is lost through equidistant vectors, so dimension reduction is often applied prior to $k$-NN.
+
+\textbf{Minkowski Distance} = $(\sum|a_i - b_i|^p)^{1/p}$
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item p = 1 gives Manhattan distance ${\sum|a_i - b_i|}$
+\item p = 2 gives Euclidean distance $\sqrt{\sum(a_i - b_i)^2}$
+\end{itemize}
+
+\textbf{Hamming Distance} - count of the differences between two vectors, often used to compare categorical variables \\
+
+\columnbreak
+% ----------------------------------------------------------------
+\textcolor{white}{.}\vspace{-5mm}\\ % Add space above column  
+\section{Clustering}
+Unsupervised, non-parametric methods that groups similar data points together based on distance
+\subsection{k-Means}
+Randomly place $k$ centroids across normalized data, and assig observations to the nearest centroid. Recalculate centroids as the mean of assignments and repeat until convergence. Using the median or medoid (actual data point) may be more robust to noise and outliers.
+
+\def\Plus{\texttt{+}}
+$\boldsymbol{k}$\textbf{-means}\Plus\Plus\hspace{1mm}- improves selection of initial clusters
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Pick the first center randomly
+\item Compute distance between points and the nearest center
+\item Choose new center using a weighted probability distribution proportional to distance
+\item Repeat until $k$ centers are chosen
+\end{enumerate}
+
+Evaluating the number of clusters and performance:
+
+\textbf{Silhouette Value} - measures how similar a data point is to its own cluster compared to other clusters, and ranges from 1 (best) to -1 (worst).
+
+\textbf{Davies-Bouldin Index} - ratio of within cluster scatter to between cluster separation, where lower values are 
+% ----------------------------------------------------------------
+\subsection{Hierarchical Clustering}
+
+Clusters data into groups using a predominant hierarchy 
+
+\textbf{Agglomerative Approach}
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Each observation starts in its own cluster
+\item Iteratively combine the most similar cluster pairs 
+\item Continue until all points are in the same cluster
+\end{enumerate}
+
+\textbf{Divisive Approach} - all points start in one cluster and splits are performed recursively down the hierarchy
+
+\textbf{Linkage Metrics} - measure dissimilarity between clusters and combines them using the minimum linkage value over all pairwise points in different clusters by comparing:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Single - the distance between the closest pair of points
+\item Complete - the distance between the farthest pair of points
+\item Ward's - the increase in within-cluster SSE if two clusters were to be combined 
+\end{itemize}
+\textbf{Dendrogram} - plots the full hierarchy of clusters, where the height of a node indicates the dissimilarity between its children 
+\begin{center}
+    \includegraphics[scale = .1]{images/dendroedit3.JPG}
+\end{center}
+
+\columnbreak
+% ----------------------------------------------------------------% ----------------------------------------------------------------
+\textcolor{white}{.}\vspace{-5mm}\\ % Add space above column 
+\section{Dimension Reduction}
+\subsection{Principal Component Analysis}
+Projects data onto orthogonal vectors that maximize variance.
+Remember, given an $n\times n$ matrix $A$, a nonzero vector $\vec{x}$, and a scaler $\lambda$, if $A\vec{x} = \lambda \vec{x}$ then $\vec{x}$ and $\lambda$ are an eigenvector and eigenvalue of $A$. In PCA, the eigenvectors are uncorrelated and represent principal components.
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Start with the covariance matrix of standardized data
+\item Calculate eigenvalues and eigenvectors using SVD or eigendecomposition
+\item Rank the principal components by their proportion of variance explained = $\frac{\lambda_i}{\sum{\lambda}}$
+\end{enumerate}
+
+For a $p$-dimensional data, there will be $p$ principal components
+
+\textbf{Sparse PCA} - constrains the number of non-zero values in each component, reducing susceptibility to noise and improving interpretability
+% ----------------------------------------------------------------
+\subsection{Linear Discriminant Analysis}
+Maximizes separation between classes and minimizes variance within classes for a labeled dataset
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Compute the mean and variance of each independent variable for every class
+\item Calculate the within-class ($\sigma_w^2$) and between-class ($\sigma_b^2$) variance
+\item Find the matrix $W$ = ($\sigma_w^2)^{-1}(\sigma_b^2$) that maximizes Fisher's signal-to-noise ratio
+\item Rank the discriminant components by their signal-to-noise ratio $\lambda$
+\end{enumerate}
+\textbf{Assumptions}
+
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Independent variables are normally distributed
+\item Homoscedasticity - constant variance of error
+\item Low multicollinearity
+\end{itemize}
+
+% ----------------------------------------------------------------
+\subsection{Factor Analysis}
+Describes data using a linear combination of $k$ latent factors. 
+Given a normalized matrix $X$, it follows the form  $X = Lf + \epsilon$,  with factor loadings $L$ and hidden factors $f$. 
+
+\begin{center}
+    \includegraphics[scale = .1]{images/factorNew1.JPG}
+\end{center}
+\vspace{-2mm}
+\textbf{Assumptions}
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item $E(X) = E(f) = E(\epsilon) = 0$
+\item Cov($f$) = $I \to $ uncorrelated factors
+\item Cov($f,\epsilon) = 0$
+\end{itemize}
+
+Since Cov($X$) = Cov($Lf$) + Cov($\epsilon$), then Cov($Lf$) = $LL'$
+
+\smallskip
+\textbf{Scree Plot} - graphs the eigenvalues of factors (or principal components) and is used to determine the number of factors to retain. The 'elbow' where values level off is often used as the cutoff.
+\columnbreak
+% ----------------------------------------------------------------
+% ----------------------------------------------------------------
+\\\textcolor{white}{.}\vspace{-5mm}\\ % Add space above column  
+\section{Natural Language Processing}
+Transforms human language into machine-usable code
+\textbf{Processing Techniques}
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Tokenization - splitting text into individual words (tokens)
+\item Lemmatization - reduces words to its base form based on dictionary definition (\emph{am, are, is} $\to$ \emph{be})
+\item Stemming - reduces words to its base form without context (\emph{ended} $\to$ \emph{end})
+\item Stop words - remove common and irrelevant words (\emph{the, is})
+\end{itemize}   
+
+\textbf{Markov Chain} - stochastic and memoryless process that predicts future events based only on the current state
+
+$\boldsymbol{n}$\textbf{-gram} - predicts the next term in a sequence of $n$ terms based on Markov chains
+
+\textbf{Bag-of-words} - represents text using word frequencies, without context or order
+
+\textbf{tf-idf} - measures word importance for a document in a collection (corpus), by multiplying the term frequency (occurrences of a term in a document) with the inverse document frequency (penalizes common terms across a corpus)
+\textbf{Cosine Similarity} - measures similarity between vectors, calculated as cos($\theta$) =
+$\frac{A\cdot B}{||A||||B||} $, which ranges from o to 1
+
+\subsection{Word Embedding}
+Maps words and phrases to numerical vectors 
+
+\textbf{word2vec} - trains iteratively over local  word context windows, places similar words close together, and embeds sub-relationships directly into vectors, such that $king - man + woman \approx queen$
+
+Relies on one of the following:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Continuous bag-of-words (CBOW) - predicts the word given its context
+\item skip-gram - predicts the context given a word
+\end{itemize}
+
+\textbf{GloVe} - combines both global and local word co-occurence data to learn word similarity
+
+\textbf{BERT} - accounts for word order and trains on subwords, and unlike word2vec and GloVe, BERT outputs different vectors for different uses of words ($cell$ phone vs. blood $cell$)
+
+\subsection{Sentiment Analysis}
+Extracts the attitudes and emotions from text
+
+\textbf{Polarity} - measures positive, negative, or neutral opinions
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Valence shifters - capture amplifiers or negators such as '$really$ fun' or '$hardly$ fun'
+\end{itemize}
+\textbf{Sentiment} - measures emotional states such as happy or sad
+\textbf{Subject-Object Identification} - classifies sentences as either subjective or objective
+\subsection{Topic Modelling}
+Captures the underlying themes that appear in documents
+\textbf{Latent Dirichlet Allocation} (LDA) - generates $k$ topics by first assigning each word to a random topic, then iteratively updating assignments based on parameters $\alpha$, the mix of topics per document, and $\beta$, the distribution of words per topic
+
+\textbf{Latent Semantic Analysis} (LSA) - identifies patterns using tf-idf scores and reduces data to $k$ dimensions through SVD
+\columnbreak
+
+% -------------------------------------------------------------
+\textcolor{white}{.}\vspace{-5mm}\\ % Add space above column 
+\section{Neural Network}
+Feeds inputs through different hidden layers and relies on weights and nonlinear functions to reach an output
+\vspace{-1mm}
+\begin{center}
+    \includegraphics[scale = .11]{images/nn3.JPG}
+\end{center}
+\vspace{-1mm}
+\textbf{Perceptron} - the foundation of a neural network that multiplies inputs by weights, adds bias, and feeds the result $z$ to an activation function
+
+\textbf{Activation Function} - defines a node's output 
+
+\vspace{-1mm}
+\begin{center}
+\begin{tabular}{c|c|c} 
+          Sigmoid & ReLU & Tanh\\
+         \hline
+         \rule{0pt}{3ex} 
+         $\frac{1}{1+e^{-z}} $  & max$(0,z)$ & $\frac{e^z - e^{-z}}{e^z + e^{-z}}$\\
+           &   &  \vspace{-2mm}\\
+         
+         \hline
+         \includegraphics[scale = .047]{images/sigmoid1.JPG} &
+         \includegraphics[scale = .047]{images/relu.JPG} &
+         \includegraphics[scale = .047]{images/tanh.JPG} 
+         
+\end{tabular}
+\end{center}
+Since a system of linear activation functions can be simplified to a single perceptron, nonlinear functions are commonly used for more accurate tuning and meaningful gradients
+
+\smallskip
+\textbf{Loss Function} - measures prediction error using functions such as MSE for regression and binary cross-entropy for probability-based classification
+
+\smallskip
+\textbf{Gradient Descent} - minimizes the average loss by moving iteratively in the direction of steepest descent, controlled by the learning rate $\gamma$ (step size). Note, $\gamma$ can be updated adaptively for better performance. For neural networks, finding the best set of weights involves: 
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Initialize weights $W$ randomly with near-zero values
+\item Loop until convergence:
+    \begin{itemize}[label={--},leftmargin=4mm]
+    \itemsep -.4mm 
+    \item Calculate the average network loss $J(W)$ 
+    \item \textbf{Backpropagation} - iterate backwards from the last layer, computing the gradient $\frac{\partial J(W)}{\partial W}$ and updating the weight $W \leftarrow W - \gamma \frac{\partial J(W)}{\partial W}$
+    \end{itemize}
+\item Return the minimum loss weight matrix $W$ 
+\end{enumerate}
+
+To prevent overfitting, regularization can be applied by: 
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Stopping training when validation performance drops
+\item Dropout - randomly drop some nodes during training to prevent over-reliance on a single node
+\item Embedding weight penalties into the objective function
+\end{itemize}
+\textbf{Stochastic Gradient Descent} - only uses a single point to compute gradients, leading to smoother convergence and faster compute speeds. Alternatively, mini-batch gradient descent trains on small subsets of the data, striking a balance between the approaches.
+
+\columnbreak
+% -------------------------------------------------------------% -------------------------------------------------------------
+\textcolor{white}{.}\vspace{-5mm}\\ % Add space above column 
+\section{Convolutional Neural Network}
+Analyzes structural or visual data by extracting local features 
+
+\textbf{Convolutional Layers} - iterate over windows of the image, applying weights, bias, and an activation function to create feature maps. Different weights lead to different features maps.
+\vspace{-4mm}
+\begin{center}
+    \includegraphics[scale = .06]{images/windowCNNNew.JPG}
+\end{center}
+\vspace{-2mm}
+\textbf{Pooling} - downsamples convolution layers to reduce dimensionality and maintain spatial invariance, allowing detection of features even if they have shifted slightly. Common techniques return the max or average value in the pooling window.\\
+\smallskip
+The general CNN architecture is as follows:
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Perform a series of convolution, ReLU, and pooling operations, extracting important features from the data 
+\item Feed output into a fully-connected layer for classification, object detection, or other structural analyses
+\end{enumerate}
+
+\section{Recurrent Neural Network}
+Predicts sequential data using a temporally connected system that captures both new inputs and previous outputs using hidden states
+\begin{center}
+\vspace{-2mm}
+    \includegraphics[scale = .07]{images/rnn1.JPG}
+\end{center}
+\vspace{-2mm}
+
+RNNs can model various input-output scenarios, such as many-to-one, one-to-many, and many-to-many. Relies on parameter (weight) sharing for efficiency. To avoid redundant calculations during backpropagation, downstream gradients are found by chaining previous gradients. However, repeatedly multiplying values greater than or less than 1 leads to:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Exploding gradients - model instability and overflows
+\item Vanishing gradients - loss of learning ability
+\end{itemize}
+This can be solved using:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Gradient clipping - cap the maximum value of gradients
+\item ReLU - its derivative prevents gradient shrinkage for $x > 0$ 
+\item Gated cells - regulate the flow of information
+\end{itemize}
+
+\textbf{Long Short-Term Memory} - learns long-term dependencies using gated cells and maintains a separate cell state from what is outputted. Gates in LSTM perform the following:
+
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Forget and filter out irrelevant info from previous layers
+\item Store relevant info from current input
+\item Update the current cell state
+\item Output the hidden state, a filtered version of the cell state
+\end{enumerate}
+LSTMs can be stacked to improve performance.
+
+\columnbreak
+% -------------------------------------------------------------% -------------------------------------------------------------
+\textcolor{white}{.}\vspace{-3mm}\\ % Add space above column 
+\section{Boosting} 
+Ensemble method that learns by sequentially fitting many simple models. As opposed to bagging, boosting trains on all the data and combines weak models using the learning rate $\alpha$. Boosting can be applied to many machine learning problems.\\
+\smallskip
+\textbf{AdaBoost} - uses sample weighting and decision 'stumps' (one-level decision trees) to classify samples
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Build decision stumps for every feature, choosing the one with the best classification accuracy
+\item Assign more weight to misclassified samples and reward trees that differentiate them, where  $\alpha = \frac{1}{2}ln\frac{1-TotalError}{TotalError}$
+\item Continue training and weighting decision stumps until convergence
+\end{enumerate}
+
+\textbf{Gradient Boost} - trains sequential models by minimizing a given loss function using gradient descent at each step
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Start by predicting the average value of the response 
+\item Build a tree on the errors, constrained by depth or the number of leaf nodes
+\item Scale decision trees by a constant learning rate $\alpha$ 
+\item Continue training and weighting decision trees until convergence
+\end{enumerate}
+
+XGBoost - fast gradient boosting method that utilizes regularization and parallelization
+% -------------------------------------------------------------% -------------------------------------------------------------
+\section{Recommender Systems}
+Suggests relevant items to users by predicting ratings and preferences, and is divided into two main types:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Content Filtering - recommends similar items 
+\item Collaborative Filtering - recommends what similar users like 
+\end{itemize}
+
+The latter is more common, and includes methods such as:
+\textbf{Memory-based Approaches} - finds neighborhoods by using rating data to compute user and item similarity, measured using correlation or cosine similarity
+
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item User-User - similar users also liked...
+\begin{itemize}[label={--},leftmargin=4mm]
+    \vspace{-1mm}
+    \itemsep -.4mm 
+    \item Leads to more diverse recommendations, as opposed to just recommending popular items
+    \item Suffers from sparsity, as the number of users who rate items is often low
+    \end{itemize}
+    \vspace{-1mm}
+\item Item-Item - similar users who liked this item also liked...
+    \begin{itemize}[label={--},leftmargin=4mm]
+    \itemsep -.4mm 
+    \vspace{-1.5mm}
+    \item Efficient when there are more users than items, since the item neighborhoods update less frequently than users
+    \item Similarity between items is often more reliable than similarity between users
+    \end{itemize}
+\end{itemize}
+\vspace{-1.5mm}
+\smallskip
+\textbf{Model-based Approaches} - predict ratings of unrated items, through methods such as Bayesian networks, SVD, and clustering. Handles sparse data better than memory-based approaches.\\
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\vspace{-.5mm}
+\item Matrix Factorization - decomposes the user-item rating matrix into two lower-dimensional matrices representing the users and items, each with $k$ latent factors
+\end{itemize}
+\smallskip
+\vspace{-1mm}
+Recommender systems can also be combined through ensemble methods to improve performance.
+\columnbreak
+% -------------------------------------------------------------% -------------------------------------------------------------
+\\\textcolor{white}{.}\vspace{-3mm}\\ % Add space above column 
+\section{Reinforcement Learning}
+Maximizes future rewards by learning through state-action pairs. That is, an $agent$ performs $actions$ in an $environment$, which updates the $state$ and provides a $reward$. 
+
+\begin{center}
+\vspace{-2mm}
+    \includegraphics[scale = .085]{images/reinforcement4.JPG}
+\end{center}
+\vspace{-2.5mm}
+\textbf{Multi-armed Bandit Problem} - a gambler plays slot machines with unknown probability distributions and must decide the best strategy to maximize reward. This exemplifies the exploration-exploitation tradeoff, as the best long-term strategy may involve short-term sacrifices.\\
+\smallskip
+RL is divided into two types, with the former being more common:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Model-free - learn through trial and error in the environment 
+\item Model-based - access to the underlying (approximate) state-reward distribution
+\end{itemize}
+
+\textbf{Q-Value} $Q(s,a)$ - captures the expected discounted total future reward given a state and action
+
+\textbf{Policy} - chooses the best actions for an agent at various states \\
+$ \pi(s) = \argmax\limits_a Q(s,a)$\\
+\smallskip
+
+Deep RL algorithms can further be divided into two main types, depending on their learning objective
+
+\textbf{Value Learning} - aims to approximate $Q(s,a)$ for all actions the agent can take, but is restricted to discrete action spaces. Can use the $\epsilon$-greedy method, where $\epsilon$ measures the probability of exploration. If chosen, the next action is selected uniformly at random.
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Q-Learning - simple value iteration model that maximizes the Q-value using a table on states and actions
+\item Deep Q Network - finds the best action to take by minimizing the Q-loss, the squared error between the target Q-value and the prediction 
+\end{itemize}
+
+\textbf{Policy Gradient Learning} - directly optimize the the policy $\pi(s)$ through a probability distribution of actions, without the need for a value function, allowing for continuous action spaces.  \\
+\smallskip
+\textbf{Actor-Critic Model} - hybrid algorithm that relies on two neural networks, an actor $\pi(s,a,\theta$) which controls agent behavior  and a critic $Q(s,a,w)$ that measures how good an action is. Both run in parallel to find the optimal weights $\theta, w$ to maximize expected reward. At each step:
+\begin{enumerate}[leftmargin=5mm]
+\itemsep -.4mm 
+\item Pass the current state into the actor and critic
+\item The critic evaluates the action's Q-value, and the actor updates its weight $\theta$
+\item The actor takes the next action leading to a new state, and the critic updates its weight $w$ 
+\end{enumerate}
+\columnbreak
+
+% ----------------------------------------------------------------
+\textcolor{white}{.}\vspace{-3mm}\\ % Add space above column 
+\section{Anomaly Detection} 
+Identifies unusual patterns that differ from the majority of the data, and can be applied in supervised, unsupervised, and semi-supervised scenarios. Assumes that anomalies are:
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Rare - the minority class that occurs rarely in the data
+\item Different - have feature values that are very different from normal observations
+\end{itemize}
+\smallskip
+Anomaly detection techniques spans a wide range, including methods based on:
+
+\textbf{Statistics} - relies on various statistical methods to identify outliers, such as Z-tests, boxplots, interquartile ranges, and variance comparisons
+
+\textbf{Density} - useful when data is grouped around dense neighborhoods, measured by distance. Methods include $k$-nearest neighbors, local outlier factor, and isolation forest.
+\begin{itemize}[label={--},leftmargin=4mm]
+\itemsep -.4mm 
+\item Isolation Forest - tree-based model that labels outliers based on an anomaly score\\
+\vspace{-1.5mm}
+\begin{enumerate}[leftmargin=4mm]
+\itemsep -.4mm 
+\item Select a random feature and split value, dividing the dataset in two
+\item Continue splitting randomly until every point is isolated
+\item Calculate the anomaly score for each observation, based on how many iterations it took to isolate that point.
+\item If the anomaly score is greater than a threshold, mark it as an outlier
+\end{enumerate}
+\end{itemize}
+\vspace{-2.5mm}
+\hspace{4mm}Intuitively, outliers are easier to isolate and should have\\\hspace{4mm}shorter path lengths in the tree
+
+\vspace{1mm}
+\textbf{Clusters} - data points outside of clusters could potentially be marked as anomalies
+
+\vspace{1mm}
+\textbf{Autoencoders} - unsupervised neural networks that compress data and reconstructs it. The network has two parts: an encoder that embeds data to a lower dimension, and a decoder that produces a reconstruction. Autoencoders do not reconstruct the data perfectly, but rather focus on capturing important features in the data.
+\begin{center}
+\vspace{-2mm}
+    \includegraphics[scale = .09]{images/autoencodeer1.JPG}
+    \vspace{-2mm}
+\end{center}
+Upon decoding, the model will accurately reconstruct normal patterns but struggle with anomalous data. The reconstruction error is used as an anomaly score to detect outliers.\\
+\smallskip
+Autoencoders are applied to many problems, including image processing, dimension reduction, and information retrieval.
+
+% ----------------------------------------------------------------
+
+\end{multicols}
+
+\end{document}
