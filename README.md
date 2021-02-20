@@ -36,6 +36,8 @@ This work is licensed under the <a rel="license" href="http://creativecommons.or
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br/>
 
+Images are used for educational purposes, created by me, or borrowed from my colleagues [here](https://stanford.edu/~shervine/teaching/cs-229/)
+
 ## Contact
 Feel free to suggest comments, updates, and potential improvements!
 
