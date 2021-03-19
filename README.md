@@ -24,7 +24,7 @@ Topics covered (some more in-depth than others) include:
 * [Data Science Cheatsheet 2.0 PDF](https://github.com/aaronwangy/Data-Science-Cheatsheet/blob/main/Data_Science_Cheatsheet.pdf)
 
 ## Screenshots
-![](images/page1-1.png?raw=true)
+![](images/page1-1.png?raw=true) 
 ![](images/page2-1.png?raw=true)
 
 ### Why is Python/SQL not covered in this cheatsheet?
