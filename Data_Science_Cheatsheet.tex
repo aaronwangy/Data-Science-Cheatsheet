@@ -30,7 +30,7 @@
 \renewcommand{\headrulewidth}{0pt}
 \cfoot{\fontsize{9pt}{11pt}\selectfont Aaron Wang}
 \setlength{\footskip}{16pt} % amount to move footer by
-
+% Remember to call your parents and tell them you love them!
 \makeatletter
 \renewcommand{\section}{\@startsection{section}{1}{0mm}%
                                 {-1ex plus -.5ex minus -.2ex}%
@@ -59,7 +59,7 @@
 \begin{center}
 \vspace{-50mm}
      \Large{\vspace{-15mm}\textbf{Data Science Cheatsheet 2.0}} \\
-     \footnotesize{Last Updated February 13, 2021}
+     \footnotesize{Last Updated \today}
      \vspace{-.4mm}
 \end{center}
 \begin{multicols}{3}
@@ -71,15 +71,16 @@
 % ----------------------------------------------------------------
 \section{Statistics}
 \subsection{Discrete Distributions}
-\textbf{Binomial} Bin($n,p)$ - number of successes in $n$ events, each with $p$ probability. If n = 1, this is the Bernoulli distribution.
+\textbf{Binomial} - number of successes $x$ in $n$ events, each with $p$ probability $\to \binom{n}x p^x q^{n-x}$, with mean = $np$. If n = 1, this is Bernoulli.
 
-\textbf{Geometric} Geom($p)$ - number of failures before success 
+\textbf{Geometric} - first success with $p$ probability on the $n^{th}$ trial $\to q^{n-1}p$, with mean = $1/p$
 
-\textbf{Negative Binomial} NBin($r,p$) - number of failures before $r$ successes 
+\textbf{Negative Binomial} - number of failures before $r$ successes 
 
-\textbf{Hypergeometric} HGeom($N,k,n)$ - number of $k$ successes in a size $N$ population with $n$ draws, without replacement 
+\textbf{Hypergeometric} - number of successes $x$ in a size $N$ population with $n$ draws, without replacement 
 
-\textbf{Poisson} Pois($\lambda$) - number of successes in a fixed time interval, where successes occur independently at an average rate $\lambda$ 
+\textbf{Poisson} - number of successes $x$ in a fixed time interval, where success occurs at an average rate $\lambda$ $\to$ $\frac{\lambda^xe^{-\lambda}}{x!}$
+
 
 % -----------------------------------------------------------------------
 \subsection{Continuous Distributions} 
@@ -87,9 +88,9 @@
 
 Central Limit Theorem - sample mean of i.i.d. data approaches normal distribution 
 
-\textbf{Exponential} Exp($p)$ - time between independent events occurring at an average rate $\lambda$ 
+\textbf{Exponential} - time between independent events occurring at an average rate $\lambda$ $\to \lambda e^{-\lambda x}$, with mean = $\frac{1}{\lambda}$
 
-\textbf{Gamma} Gamma($p)$ - time until $n$ independent events occurring at an average rate $\lambda$ 
+\textbf{Gamma} - time until $n$ independent events occurring at an average rate $\lambda$ 
 
 % -----------------------------------------------------------------------
 \subsection{Hypothesis Testing}
@@ -129,10 +130,6 @@ $\boldsymbol p$\textbf{-value} - probability of getting results at least as extr
 \item leave-$p$-out  - use $p$ samples to validate and the rest to train
 \end{itemize}
 
-\textbf{Parametric} - assume data follows a function form with a fixed number of parameters
-
-\textbf{Non-parametric} - no assumptions on the data and an unbounded number of parameters
-
 \columnbreak
 % ---------------------------------------------------------------% ---------------------------------------------------------------
 % ---------------------------------------------------------------
@@ -150,11 +147,11 @@ Prediction Error = Bias$^2$ + Variance + Irreducible Noise
 \vspace{.2em}
 \textbf{Mean Absolute Error} (MAE) =$\frac{1}{n}\sum |(y_i -\hat{y})|$ 
 
-Residual Sum of Squares = $\sum (y_i - \hat{y})^2$ 
+Sum of Squared Error (SSE) = $\sum (y_i - \hat{y})^2$ 
 
-Total Sum of Squares = $\sum (y_i - \bar{y})^2$ 
+Total Sum of Squares (SST) = $\sum (y_i - \bar{y})^2$ 
 
-$\boldsymbol{R^2} = 1 - \frac{SS_{\rm res}}{SS_{\rm tot}}$ 
+$\boldsymbol{R^2} = 1 - \frac{SSE}{SST}$ 
 
 \subsection{Classification}
 \begin{center}
@@ -342,7 +339,7 @@ Non-parametric method that calculates $\hat{y}$ using the average value or most 
 \section{Clustering}
 Unsupervised, non-parametric methods that groups similar data points together based on distance
 \subsection{k-Means}
-Randomly place $k$ centroids across normalized data, and assig observations to the nearest centroid. Recalculate centroids as the mean of assignments and repeat until convergence. Using the median or medoid (actual data point) may be more robust to noise and outliers.
+Randomly place $k$ centroids across normalized data, and assig observations to the nearest centroid. Recalculate centroids as the mean of assignments and repeat until convergence. Using the median or medoid (actual data point) may be more robust to noise and outliers. $k$-modes is used for categorical data.
 
 \def\Plus{\texttt{+}}
 $\boldsymbol{k}$\textbf{-means}\Plus\Plus\hspace{1mm}- improves selection of initial clusters
@@ -768,6 +765,9 @@ Upon decoding, the model will accurately reconstruct normal patterns but struggl
 Autoencoders are applied to many problems, including image processing, dimension reduction, and information retrieval.
 
 % ----------------------------------------------------------------
+
+
+
 
 \end{multicols}
 
