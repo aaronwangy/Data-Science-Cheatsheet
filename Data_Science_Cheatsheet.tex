@@ -71,15 +71,15 @@
 % ----------------------------------------------------------------
 \section{Statistics}
 \subsection{Discrete Distributions}
-\textbf{Binomial} - number of successes $x$ in $n$ events, each with $p$ probability $\to \binom{n}x p^x q^{n-x}$, with mean = $np$. If n = 1, this is Bernoulli.
+\textbf{Binomial} - number of successes $x$ in $n$ events, each with $p$ probability $\to \binom{n}x p^x q^{n-x}$, with $\mu = np$ and $\delta^2 = npq$. If n = 1, this is Bernoulli.
 
 \textbf{Geometric} - first success with $p$ probability on the $n^{th}$ trial $\to q^{n-1}p$, with mean = $1/p$
 
 \textbf{Negative Binomial} - number of failures before $r$ successes 
 
-\textbf{Hypergeometric} - number of successes $x$ in a size $N$ population with $n$ draws, without replacement 
+\textbf{Hypergeometric} - number of successes $x$ in a size $N$ population with $n$ draws, without replacement. $\mu=n\frac{x}{N}$ 
 
-\textbf{Poisson} - number of successes $x$ in a fixed time interval, where success occurs at an average rate $\lambda$ $\to$ $\frac{\lambda^xe^{-\lambda}}{x!}$
+\textbf{Poisson} - number of successes $x$ in a fixed time interval, where success occurs at an average rate $\lambda$ $\to$ $\frac{\lambda^xe^{-\lambda}}{x!}$. $\mu = \delta^2 = \lambda$
 
 
 % -----------------------------------------------------------------------
@@ -199,20 +199,20 @@ by solving $\hat{\beta}$ = $(X^{T}X)^{-1}X^{T}Y$ which minimizes the SSE
 
 Add a penalty for large coefficients to reduce overfitting 
 
-\textbf{Subset}  (L0): $\lambda ||\hat{\beta}||_0 = \lambda (number \;of\;non\hspace{-.7mm}-\hspace{-.7mm}zero\; variables)$ 
+\textbf{Subset}  ($L_0$): $\lambda ||\hat{\beta}||_0 = \lambda (number \;of\;non\hspace{-.7mm}-\hspace{-.7mm}zero\; variables)$ 
 \begin{itemize}[label={--},leftmargin=4mm]
 \vspace{-1mm}
 \itemsep -.4mm 
 \item Computationally slow, need to fit $2^k$ models
 \item Alternatives: forward and backward stepwise selection
 \end{itemize}
-\textbf{LASSO}  (L1): $\lambda ||\hat{\beta}||_1 = \lambda\sum | \hat{\beta} |$
+\textbf{LASSO}  ($L_1$): $\lambda ||\hat{\beta}||_1 = \lambda\sum | \hat{\beta} |$
 \begin{itemize}[label={--},leftmargin=4mm]
 \vspace{-1mm}
 \itemsep -.4mm 
 \item Coefficients shrunk to zero
 \end{itemize}
-\textbf{Ridge}  (L2): $\lambda ||\hat{\beta}||_2 = \lambda\sum( \hat{\beta})^2$ 
+\textbf{Ridge}  ($L_2$): $\lambda ||\hat{\beta}||_2 = \lambda\sum( \hat{\beta})^2$ 
 \begin{itemize}[label={--},leftmargin=4mm]
 \vspace{-1mm}
 \itemsep -.4mm 
@@ -265,7 +265,7 @@ Possible measures, each with a max impurity of 0.5.
 \vspace{-1mm}
 \itemsep -.4mm 
 \item Gini impurity = $\sum_i (\hat{p_i})^2$ 
-\item Entropy = $\sum_i -(\hat{p_i}) log_2(\hat{p_i})$ 
+\item Cross-Entropy = $-\sum_i (\hat{p_i}) log_2(\hat{p_i})$ 
 \end{itemize}
 At each leaf node, CART predicts the most frequent category, assuming false negative and false positive costs are the same.
 
