@@ -5,15 +5,14 @@ A helpful 4-page data science cheatsheet to assist with exam reviews, interview 
 Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), located [here](https://github.com/ml874/Data-Science-Cheatsheet).
 
 Topics covered (some more in-depth than others) include:
-- Common Distributions
 - Linear and Logistic Regression
 - Decision Trees and Random Forest
 - SVM
-- KNN
+- K-Nearest Neighbors
 - Clustering
 - Boosting
 - Dimension Reduction (PCA, LDA, Factor Analysis)
-- NLP
+- Natural Language Processing
 - Neural Networks
 - Recommender Systems
 - Reinforcement Learning
