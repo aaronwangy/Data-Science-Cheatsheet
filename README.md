@@ -18,7 +18,9 @@ Topics covered (some more in-depth than others) include:
 - Recommender Systems
 - Reinforcement Learning
 - Anomaly Detection
+- and more!
 
+This cheatsheet will be occasionally updated with new/improved info, so consider a follow/star to stay up to date.
 
 ## Links
 * [Data Science Cheatsheet 2.0 PDF](https://github.com/aaronwangy/Data-Science-Cheatsheet/blob/main/Data_Science_Cheatsheet.pdf)
