@@ -1,6 +1,6 @@
 # Data Science Cheatsheet 2.0
 
-A helpful 4-page data science cheatsheet to assist with exam reviews, interview prep, and anything in-between. This resource is not meant to be a comprehensive deep dive into any specific model, but rather a quick refresher on a few of the most fundamental machine learning algorithms. The reader should have at least a basic understanding of statistics and linear algebra, though beginners may find this cheatsheet helpful as well. 
+A helpful 5-page data science cheatsheet to assist with exam reviews, interview prep, and anything in-between. This resource is not meant to be a comprehensive deep dive into any specific model, but rather a quick refresher on a few of the most fundamental machine learning algorithms. The reader should have at least a basic understanding of statistics and linear algebra, though beginners may find this cheatsheet helpful as well. 
 
 Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), located [here](https://github.com/ml874/Data-Science-Cheatsheet).
 
@@ -17,13 +17,16 @@ Topics covered (some more in-depth than others) include:
 - Recommender Systems
 - Reinforcement Learning
 - Anomaly Detection
+- Time Series
+- A/B Testing
 - and more!
 
 This cheatsheet will be occasionally updated with new/improved info, so consider a follow/star to stay up to date.
 
-Current planned additions:
-- Time Series (ARIMA, SARIMA)
-- Additional statistical theories often seen in interviews
+Future additions (ideas welcome):
+- ~~Time Series~~ Added!
+- ~~Statistics and Probability~~ Added!
+- Data Imputation
 
 ## Links
 * [Data Science Cheatsheet 2.0 PDF](https://github.com/aaronwangy/Data-Science-Cheatsheet/blob/main/Data_Science_Cheatsheet.pdf)
