@@ -32,6 +32,9 @@ Future additions (ideas welcome):
 * [Data Science Cheatsheet 2.0 PDF](https://github.com/aaronwangy/Data-Science-Cheatsheet/blob/main/Data_Science_Cheatsheet.pdf)
 
 ## Screenshots
+
+Here are screenshots of a couple pages - the link to the full cheatsheet is above!
+
 ![](images/page1-1.png?raw=true) 
 ![](images/page2-1.png?raw=true)
 
