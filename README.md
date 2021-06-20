@@ -19,7 +19,6 @@ Topics covered (some more in-depth than others) include:
 - Anomaly Detection
 - Time Series
 - A/B Testing
-- and more!
 
 This cheatsheet will be occasionally updated with new/improved info, so consider a follow/star to stay up to date.
 
