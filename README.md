@@ -54,4 +54,4 @@ Images are used for educational purposes, created by me, or borrowed from my col
 ## Contact
 Feel free to suggest comments, updates, and potential improvements!
 
-**Aaron Wang**: Reach out via [LinkedIn](https://www.linkedin.com/in/axw/)
+Author - [Aaron Wang](https://www.linkedin.com/in/axw/)
