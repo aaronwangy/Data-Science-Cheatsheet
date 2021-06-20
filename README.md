@@ -4,7 +4,7 @@ A helpful 5-page data science cheatsheet to assist with exam reviews, interview 
 
 Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), located [here](https://github.com/ml874/Data-Science-Cheatsheet).
 
-Topics covered (some more in-depth than others) include:
+Topics covered:
 - Linear and Logistic Regression
 - Decision Trees and Random Forest
 - SVM
