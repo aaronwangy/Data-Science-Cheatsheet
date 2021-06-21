@@ -1,6 +1,6 @@
 # Data Science Cheatsheet 2.0
 
-A helpful 5-page data science cheatsheet to assist with exam reviews, interview prep, and anything in-between. This resource is not meant to be a comprehensive deep dive into any specific model, but rather a quick refresher on a few of the most fundamental machine learning algorithms. The reader should have at least a basic understanding of statistics and linear algebra, though beginners may find this cheatsheet helpful as well. 
+A helpful 5-page machine learning cheatsheet to assist with exam reviews, interview prep, and anything in-between. This resource is not meant to be a comprehensive deep dive into any specific model, but rather a quick refresher on a few of the most fundamental machine learning algorithms. The reader should have at least a basic understanding of statistics and linear algebra, though beginners may find this cheatsheet helpful as well. 
 
 Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), located [here](https://github.com/ml874/Data-Science-Cheatsheet).
 
