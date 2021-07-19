@@ -20,7 +20,7 @@ Topics covered:
 - Time Series
 - A/B Testing
 
-This cheatsheet will be occasionally updated with new/improved info, so consider a follow/star to stay up to date.
+This cheatsheet will be occasionally updated with new/improved info, so consider a follow or star to stay up to date.
 
 Future additions (ideas welcome):
 - ~~Time Series~~ Added!
