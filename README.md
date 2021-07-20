@@ -1,6 +1,6 @@
 # Data Science Cheatsheet 2.0
 
-A helpful 5-page data science cheatsheet to assist with exam reviews, interview prep, and anything in-between. This resource covers a semester or two of introductory machine learning, and is based on MIT's Machine Learning courses 6.867 and 15.072. The reader should have at least a basic understanding of statistics and linear algebra, though beginners may find this cheatsheet helpful as well. 
+A helpful 5-page data science cheatsheet to assist with exam reviews, interview prep, and anything in-between. This resource covers over a semester of introductory machine learning, and is based on MIT's Machine Learning courses 6.867 and 15.072. The reader should have at least a basic understanding of statistics and linear algebra, though beginners may find this cheatsheet helpful as well. 
 
 Inspired by Maverick's *Data Science Cheatsheet* (hence the 2.0 in the name), located [here](https://github.com/ml874/Data-Science-Cheatsheet).
 
