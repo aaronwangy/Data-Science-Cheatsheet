@@ -58,4 +58,4 @@ Feel free to suggest comments, updates, and potential improvements!
 
 Author - [Aaron Wang](https://www.linkedin.com/in/axw/)
 
-If you'd like to support this cheatsheet, you can buy me a coffee [here](https://www.paypal.me/aaxw)
+If you'd like to support this cheatsheet, you can buy me a coffee [here](https://www.paypal.me/aaxw). I also do resume, application, and tech consulting - send me a message if interested.
