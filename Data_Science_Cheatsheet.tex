@@ -765,7 +765,7 @@ Deep RL algorithms can further be divided into two main types, depending on thei
 \item Deep Q Network - finds the best action to take by minimizing the Q-loss, the squared error between the target Q-value and the prediction
 \end{itemize}
 
-\textbf{Policy Gradient Learning} - directly optimize the the policy $\pi(s)$ through a probability distribution of actions, without the need for a value function, allowing for continuous action spaces.  \\
+\textbf{Policy Gradient Learning} - directly optimize the policy $\pi(s)$ through a probability distribution of actions, without the need for a value function, allowing for continuous action spaces.  \\
 \smallskip
 \textbf{Actor-Critic Model} - hybrid algorithm that relies on two neural networks, an actor $\pi(s,a,\theta$) which controls agent behavior  and a critic $Q(s,a,w)$ that measures how good an action is. Both run in parallel to find the optimal weights $\theta, w$ to maximize expected reward. At each step:
 \begin{enumerate}[leftmargin=5mm]
